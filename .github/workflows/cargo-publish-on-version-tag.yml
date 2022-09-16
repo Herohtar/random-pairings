@@ -16,6 +16,7 @@ jobs:
           toolchain: stable
           override: true
       - name: Publish crate
+        id: publish
         uses: actions-rs/cargo@v1
         with:
           command: publish
