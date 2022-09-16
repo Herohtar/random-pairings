@@ -14,6 +14,7 @@ jobs:
         with:
           profile: minimal
           toolchain: stable
+          override: true
       - name: Publish crate
         uses: actions-rs/cargo@v1
         with:
