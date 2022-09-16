@@ -1,0 +1,20 @@
+name: Dry run cargo publish on PR
+on: pull_request
+jobs:
+  publish_dry_run:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Publish (dry run)
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
+          args: --dry-run

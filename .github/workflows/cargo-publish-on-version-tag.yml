@@ -1,0 +1,29 @@
+name: Publish crate on version tag creation
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Publish crate
+        uses: actions-rs/cargo@v1
+        with:
+          command: publish
+          args: --token ${CRATES_TOKEN}
+        env:
+          CRATES_TOKEN: ${{ secrets.CRATES_TOKEN }}
+      - name: Draft Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+        if: steps.publish.outcome == 'success'
