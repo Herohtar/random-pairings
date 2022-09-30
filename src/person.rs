@@ -46,3 +46,85 @@ impl fmt::Display for Person {
     write!(f, "{} is buying a gift for {}", self.name, choice)
   }
 }
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  #[test]
+  fn new_works() {
+    let name = "Bob".to_string();
+    assert_eq!(Person::new(&name), Person {
+      name: name,
+      spouse: None,
+      choice: None,
+    });
+  }
+
+  #[test]
+  fn with_spouse_works() {
+    let name = "Bob".to_string();
+    let spouse = "Alice".to_string();
+    assert_eq!(Person::with_spouse(&name, &spouse), Person {
+      name: name,
+      spouse: Some(spouse),
+      choice: None,
+    });
+  }
+
+  #[test]
+  fn valid_choice_without_spouse_is_correct() {
+    let name = "Bob".to_string();
+    let choice = "Alice".to_string();
+    let person = Person::new(&name);
+
+    assert_eq!(person.is_valid_choice(&choice), true);
+  }
+
+  #[test]
+  fn invalid_choice_without_spouse_is_correct() {
+    let name = "Bob".to_string();
+    let choice = "Bob".to_string();
+    let person = Person::new(&name);
+
+    assert_eq!(person.is_valid_choice(&choice), false);
+  }
+
+  #[test]
+  fn valid_choice_with_spouse_is_correct() {
+    let name = "Bob".to_string();
+    let spouse = "Alice".to_string();
+    let choice = "Frank".to_string();
+    let person = Person::with_spouse(&name, &spouse);
+
+    assert_eq!(person.is_valid_choice(&choice), true);
+  }
+
+  #[test]
+  fn invalid_choice_with_spouse_is_correct() {
+    let name = "Bob".to_string();
+    let spouse = "Alice".to_string();
+    let choice = "Alice".to_string();
+    let person = Person::with_spouse(&name, &spouse);
+
+    assert_eq!(person.is_valid_choice(&choice), false);
+  }
+
+  #[test]
+  fn to_string_works_without_choice() {
+    let name = "Bob".to_string();
+    let person = Person::new(&name);
+
+    assert_eq!(person.to_string(), format!("{name} is buying a gift for None"));
+  }
+
+  #[test]
+  fn to_string_works_with_choice() {
+    let name = "Bob".to_string();
+    let choice = "Alice".to_string();
+    let mut person = Person::new(&name);
+    person.choice = Some(choice.clone());
+
+    assert_eq!(person.to_string(), format!("{name} is buying a gift for {choice}"));
+  }
+}
