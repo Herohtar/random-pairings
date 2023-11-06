@@ -3,8 +3,7 @@ use crate::person::Person;
 use std::collections::VecDeque;
 
 use rand::{
-  thread_rng,
-  seq::SliceRandom,
+  seq::SliceRandom, Rng,
 };
 
 #[derive(Debug, Clone)]
@@ -43,11 +42,11 @@ impl PairingGenerator {
     Ok(())
   }
 
-  pub fn generate_pairings(&self) -> Vec<Person> {
+  pub fn generate_pairings<R>(&self, rng: &mut R) -> Vec<Person> where R: Rng + ?Sized {
     let mut unassigned_people = self.people.clone();
     let mut assigned_people: Vec<Person> = Vec::with_capacity(unassigned_people.len());
     let mut shuffled = unassigned_people.clone();
-    shuffled.shuffle(&mut thread_rng());
+    shuffled.shuffle(rng);
     let mut shuffled = VecDeque::from(shuffled);
 
     while unassigned_people.len() > 0 {
