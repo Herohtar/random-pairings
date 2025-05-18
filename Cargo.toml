@@ -1,7 +1,7 @@
 [package]
 name = "random-pairings"
 description = "Generates random pairings"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Herohtar <belac1186@gmail.com>"]
 repository = "https://github.com/Herohtar/random-pairings"
 keywords = ["random", "pairs"]
