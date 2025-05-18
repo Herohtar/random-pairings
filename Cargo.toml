@@ -1,12 +1,12 @@
 [package]
 name = "random-pairings"
 description = "Generates random pairings"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Herohtar <belac1186@gmail.com>"]
 repository = "https://github.com/Herohtar/random-pairings"
 keywords = ["random", "pairs"]
 license = "MIT"
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -14,5 +14,5 @@ edition = "2021"
 # js = ["getrandom/js"]
 
 [dependencies]
-rand = { version = "^0.8.5", default-features = false }
+rand = { version = "0.9.1", default-features = false }
 # getrandom = "^0.2.10"
