@@ -14,5 +14,5 @@ edition = "2024"
 # js = ["getrandom/js"]
 
 [dependencies]
-rand = { version = "^0.8.5", default-features = false }
+rand = { version = "0.9.1", default-features = false }
 # getrandom = "^0.2.10"
